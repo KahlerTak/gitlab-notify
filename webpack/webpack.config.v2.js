@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     mode: "production",
+    devtool: "source-map",
     entry: {
         background: path.resolve(__dirname, "..", "src", "background.ts"),
         popup: path.resolve(__dirname, "..", "src", "popupLoader.tsx"), // Popup-Entry ergänzen

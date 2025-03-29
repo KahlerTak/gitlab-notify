@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     AppBar,
     Box,
     CssBaseline,
-    Drawer, IconButton, ImageListItem,
+    Drawer,
+    IconButton,
     List,
     ListItemButton,
-    ListItemIcon,
     ListItemText,
     Toolbar,
     Typography
@@ -14,13 +14,23 @@ import {
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Settings from "./pages/Settings";
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
+import i18next from "i18next";
+import ConfigurationSettings from "../storage/ConfigurationSettings";
 
 
 const Options: React.FC = () => {
     const { t } = useTranslation();
 
+    useEffect(() => {
+        const setup = async () =>{
+            const config = await ConfigurationSettings.Load();
+            await i18next.changeLanguage(config.Language);
+        }
+
+        setup().then();
+    }, []);
 
     return (
         <Router>

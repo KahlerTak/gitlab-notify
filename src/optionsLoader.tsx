@@ -9,7 +9,7 @@ i18next
     .use(i18nextHttpBackend)
     .use(initReactI18next)
     .init({
-        lng: 'de', // Standard-Sprache
+        lng: 'en', // Standard-Sprache
         fallbackLng: 'en', // Fallback-Sprache, wenn keine Übersetzung für die gewählte Sprache vorhanden ist
         backend: {
             loadPath: '/i18n/{{lng}}.json', // Pfad zu den Übersetzungsdateien

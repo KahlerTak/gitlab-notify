@@ -1,9 +1,10 @@
-type ConfigurationSettingsStorage = { settings: ConfigurationSettings }
+export type Language = "de"|"en";
 
 export default class ConfigurationSettings{
     public ApiToken: string = "";
     public RefreshTimeInSeconds: number = 10;
-    Hostname: string = "";
+    public Hostname: string = "";
+    public Language: Language = "en";
 
     public async Store(){
         return ConfigurationSettings.Store(this);
@@ -16,7 +17,13 @@ export default class ConfigurationSettings{
                     return reject(chrome.runtime.lastError);
                 }
 
-                resolve(item["settings"]);
+                if(item["settings"]){
+                    const config = Object.setPrototypeOf(item["settings"], ConfigurationSettings.prototype);
+
+                    return resolve(config);
+                }
+
+                return resolve(new ConfigurationSettings());
             })
         });
     }

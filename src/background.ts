@@ -2,6 +2,9 @@ import PeriodicExec from "./periodic-exec";
 import ConfigurationSettings from "./storage/ConfigurationSettings";
 import Alarm = chrome.alarms.Alarm;
 import NotificationHandler from "./handler/NotificationHandler";
+import i18next from "i18next";
+import i18nextHttpBackend from "i18next-http-backend";
+import {initReactI18next} from "react-i18next";
 
 class Main{
     private notificationHandler: NotificationHandler;
@@ -26,12 +29,25 @@ class Main{
             console.error("chrome.alarms ist nicht verfügbar!");
         }
 
+        await i18next
+            .use(i18nextHttpBackend)
+            .use(initReactI18next)
+            .init({
+                lng: 'en', // Standard-Sprache
+                fallbackLng: 'en', // Fallback-Sprache, wenn keine Übersetzung für die gewählte Sprache vorhanden ist
+                backend: {
+                    loadPath: '/i18n/{{lng}}.json', // Pfad zu den Übersetzungsdateien
+                },
+            });
+
         await this.notificationHandler.start();
 
         chrome.runtime.onInstalled.addListener(async () => {
             console.log("installed")
-            const config = new ConfigurationSettings();
+            const config = await ConfigurationSettings.Load();
             await config.Store();
+            console.log(config);
+            await i18next.changeLanguage(config.Language ?? "en");
             const periodicExec = new PeriodicExec();
             await periodicExec.exec();
         });
@@ -43,6 +59,8 @@ class Main{
             }
 
             const config = changes.changes as ConfigurationSettings;
+            await i18next.changeLanguage(config.Language);
+
             // Alarm direkt beim Laden setzen (5 Minuten Wiederholungsintervall)
             await chrome.alarms.create('periodic-exec', {
                 delayInMinutes: 0,
