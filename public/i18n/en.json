@@ -26,5 +26,17 @@
     "buttons": {
       "save": "Submit"
     }
+  },
+  "about": {
+    "titles": {
+      "description": "About the Gitlab-Notify extension",
+      "legals": "Legal disclaimers",
+      "license": "License"
+    },
+    "body": {
+      "description": "This browser extension is a tool to receive GitLab notifications on your operating system. It was created out of the need to handle review requests more quickly and efficiently within the team.",
+      "legals": "This browser extension is not developed, supported, or maintained by GitLab Inc. It is an independent project that is not affiliated with GitLab.",
+      "license": "The browser extension is licensed under the GNU General Public License Version 3 (GPL-3). For more information on the license and terms, please refer to the LICENSE file in the project."
+    }
   }
 }

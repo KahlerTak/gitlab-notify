@@ -26,5 +26,17 @@
     "buttons": {
       "save": "Speichern"
     }
+  },
+  "about": {
+    "titles": {
+      "description": "Die Gitlab-Notify Browserextension",
+      "legal": "Rechtlicher Disclaimer",
+      "license": "Lizenz"
+    },
+    "body": {
+      "description": "Diese Browserextension ist ein Tool, um Gitlab-Notifications auf Ihrem Betriebsystem zu erhalten. Es enstand aus dem Bedürfnis, Reviews-Requests im Team schneller und effizienter zu bearbeiten.",
+      "legals": "Dieses Browser-Extension wird nicht von GitLab Inc. entwickelt, unterstützt oder gepflegt. Es handelt sich um ein unabhängiges Projekt, das nicht mit GitLab in Verbindung steht.",
+      "license": "Die Browser-Extension steht unter der GNU General Public License Version 3 (GPL-3). Weitere Informationen zur Lizenz und zu den Bedingungen finden Sie in der LICENSE-Datei des Projekts."
+    }
   }
 }
