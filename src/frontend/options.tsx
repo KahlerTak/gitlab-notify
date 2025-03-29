@@ -12,7 +12,6 @@ import {
     Typography
 } from '@mui/material';
 import About from "./pages/About";
-import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
@@ -64,9 +63,6 @@ const Options: React.FC = () => {
                     <List sx={{
                         marginTop: 8
                     }}>
-                        <ListItemButton component={Link} to="/">
-                            <ListItemText primary={t("navigation.home")}/>
-                        </ListItemButton>
                         <ListItemButton component={Link} to="/settings">
                             <ListItemText primary={t("navigation.settings")}/>
                         </ListItemButton>
@@ -86,8 +82,8 @@ const Options: React.FC = () => {
                     }}
                 >
                     <Routes>
-                        <Route path="/" element={<Home/>}/>
                         <Route path="/settings" element={<Settings/>}/>
+                        <Route path="/options.html" element={<Settings/>}/>
                         <Route path="/about" element={<About/>}/>
                     </Routes>
                 </Box>
