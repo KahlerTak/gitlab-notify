@@ -1,6 +1,6 @@
 {
-  "name": "Hello Extensions Upüdate",
-  "description": "Base Level Extension",
+  "name": "Gitlab Notifications",
+  "description": "An extension for additional notifications on Gitlab",
   "version": "1.0",
   "manifest_version": 3,
   "permissions": [
@@ -13,7 +13,6 @@
     "type": "module"
   },
   "action": {
-    "default_popup": "popup.html",
     "default_icon": "gitlab.png"
   },
   "options_page": "options.html"

@@ -7,7 +7,6 @@ module.exports = {
     devtool: "source-map",
     entry: {
         background: path.resolve(__dirname, "..", "src", "background.ts"),
-        popup: path.resolve(__dirname, "..", "src", "popupLoader.tsx"), // Popup-Entry ergänzen
         options: path.resolve(__dirname, "..", "src", "optionsLoader.tsx"), // Options-Seite
     },
     output: {
@@ -32,11 +31,6 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [{ from: "manifest.v3.json", to: "manifest.json", context: "public" }],
-        }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, "..", "src", "html", "popup.html"),
-            filename: "popup.html",
-            chunks: ["popup"], // Nur das Popup-Skript einfügen
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "..", "src", "html", "options.html"),
