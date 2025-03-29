@@ -1,0 +1,53 @@
+import MergeRequestEventEmitter from "../events/MergeRequestEventEmitter";
+import MergeRequestDto from "../gitlab/api/v4/Dtos/MergeRequestDto";
+import ConfigurationSettings from "../storage/ConfigurationSettings";
+import GitlabApiClient from "../gitlab/api/v4/GitlabClient";
+import MergeRequests from "../storage/MergeRequests";
+
+export default class NotificationHandler{
+
+
+    public async start(){
+        const emitter = MergeRequestEventEmitter.getInstance();
+        emitter.onNewMergeRequest(this.notify);
+        emitter.onNewMergeRequestCommit(this.notify);
+
+        chrome.notifications.onClicked.addListener(this.notificationClicked);
+    }
+
+    private async notificationClicked(notificationId: string){
+
+        if (!notificationId.startsWith("new-merge-commit-")) {
+            return;
+        }
+
+        const settings = await ConfigurationSettings.Load();
+        const id = parseInt(notificationId.substring("new-merge-commit-".length));
+
+        const mergeRequests = await MergeRequests.Load();
+        const mergeRequest = mergeRequests.find(mr => mr.id === id);
+        if (!mergeRequest) {
+            return;
+        }
+
+        const gitlabClient = new GitlabApiClient();
+        await gitlabClient.configure();
+
+        const project = await gitlabClient.getProject(mergeRequest.project_id);
+        console.log(`https://${settings.Hostname}/${project.path_with_namespace}/-/merge_requests/${id}`)
+        await chrome.tabs.create({ url: `https://${settings.Hostname}/${project.path_with_namespace}/-/merge_requests/${mergeRequest.iid}` }); // Link öffnen
+    }
+
+    private async notify(newMergeRequest: MergeRequestDto, oldMergeRequest: MergeRequestDto){
+        chrome.notifications.create(
+            `new-merge-commit-${newMergeRequest.id}`,
+            {
+                type: "basic",
+                title: `New commit for merge request '${newMergeRequest.title}'`,
+                message: "Check in to see the new merge commit",
+                iconUrl: "gitlab.png"
+            },
+            function () {}
+        );
+    }
+}

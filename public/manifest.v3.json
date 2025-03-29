@@ -1,0 +1,20 @@
+{
+  "name": "Hello Extensions Upüdate",
+  "description": "Base Level Extension",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "tabs", "activeTab", "tabGroups", "notifications", "alarms",
+    "scripting",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "gitlab.png"
+  },
+  "options_page": "options.html"
+}

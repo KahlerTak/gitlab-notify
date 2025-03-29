@@ -1,0 +1,36 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.0.0",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "@types/react-router-dom": "^5.3.3",
+    "chrome-types": "^0.1.345",
+    "i18next": "^24.2.3",
+    "i18next-http-backend": "^3.0.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-i18next": "^15.4.1",
+    "react-router-dom": "^7.4.0"
+  },
+  "name": "gitlab-notifier",
+  "description": "This example demonstrates how to create a simple \"Hello World\" Chrome Extension. For more details, visit the [official tutorial](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world).",
+  "version": "1.0.0",
+  "main": "entrypoint.js",
+  "devDependencies": {
+    "@types/chrome": "^0.0.312",
+    "copy-webpack-plugin": "^13.0.0",
+    "html-webpack-plugin": "^5.6.3",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.2",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "scripts": {
+    "build:v2": "webpack --config webpack/webpack.config.v2.js",
+    "build:v3": "webpack --config webpack/webpack.config.v3.js"
+  },
+  "author": "Nils Pöhlmann",
+  "license": "ISC"
+}

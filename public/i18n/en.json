@@ -1,0 +1,8 @@
+{
+  "welcome": "Welcome",
+  "navigation": {
+    "home": "Home",
+    "settings": "Settings",
+    "about": "About"
+  }
+}
