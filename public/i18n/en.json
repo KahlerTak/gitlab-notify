@@ -1,8 +1,30 @@
 {
   "welcome": "Welcome",
+  "language": {
+    "german": "German",
+    "english": "English"
+  },
   "navigation": {
     "home": "Home",
     "settings": "Settings",
     "about": "About"
+  },
+  "settings": {
+    "headline": "Settings",
+    "hints": {
+      "hostname": "Gitlab Server",
+      "apiToken": "Private API token (needs the read-api permissions)"
+    },
+    "labels": {
+      "language": "Language selection",
+      "hostname": "Gitlab Server",
+      "apiToken": "API-Token"
+    },
+    "alerts": {
+      "saved": "Settings saved successfully"
+    },
+    "buttons": {
+      "save": "Submit"
+    }
   }
 }

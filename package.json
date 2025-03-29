@@ -2,6 +2,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.0.1",
     "@mui/material": "^7.0.0",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
@@ -29,7 +30,9 @@
   },
   "scripts": {
     "build:v2": "webpack --config webpack/webpack.config.v2.js",
-    "build:v3": "webpack --config webpack/webpack.config.v3.js"
+    "watch:v2": "webpack --watch --config webpack/webpack.config.v2.js",
+    "build:v3": "webpack --config webpack/webpack.config.v3.js",
+    "watch:v3": "webpack --watch --config webpack/webpack.config.v3.js"
   },
   "author": "Nils Pöhlmann",
   "license": "ISC"
