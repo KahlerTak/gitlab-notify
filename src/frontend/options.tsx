@@ -11,12 +11,11 @@ import {
     Toolbar,
     Typography
 } from '@mui/material';
-import About from "./pages/About";
-import Settings from "./pages/Settings";
-import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
+import {HashRouter as Router, Link} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import i18next from "i18next";
 import ConfigurationSettings from "../storage/ConfigurationSettings";
+import {OptionsRoutes} from "./routes";
 
 
 const Options: React.FC = () => {
@@ -81,11 +80,7 @@ const Options: React.FC = () => {
                         marginTop: 8,
                     }}
                 >
-                    <Routes>
-                        <Route path="/settings" element={<Settings/>}/>
-                        <Route path="/options.html" element={<Settings/>}/>
-                        <Route path="/about" element={<About/>}/>
-                    </Routes>
+                    <OptionsRoutes/>
                 </Box>
             </Box>
         </Router>

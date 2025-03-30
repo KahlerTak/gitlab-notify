@@ -40,7 +40,14 @@ class Main{
                 },
             });
 
+        const action = chrome.action ? chrome.action : chrome.browserAction;
+
+        action.onClicked.addListener(() => {
+            chrome.tabs.create({ url: chrome.runtime.getURL("options.html") });
+        });
+
         await this.notificationHandler.start();
+
 
         chrome.runtime.onInstalled.addListener(async () => {
             console.log("installed")
