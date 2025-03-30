@@ -26,13 +26,14 @@
     "ts-loader": "^9.5.2",
     "typescript": "^5.8.2",
     "webpack": "^5.98.0",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^6.0.1",
+    "webpack-zip-plugin": "^0.1.6"
   },
   "scripts": {
-    "build:v2": "webpack --config webpack/webpack.config.v2.js",
-    "watch:v2": "webpack --watch --config webpack/webpack.config.v2.js",
-    "build:v3": "webpack --config webpack/webpack.config.v3.js",
-    "watch:v3": "webpack --watch --config webpack/webpack.config.v3.js"
+    "watch:v2": "webpack --watch --config properties/webpack.config.js --mode development --env manifestVersion=v2",
+    "watch:v3": "webpack --watch --config properties/webpack.config.js --mode development --env manifestVersion=v3",
+    "build:v2": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v2",
+    "build:v3": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v3"
   },
   "author": "Nils Pöhlmann",
   "license": "ISC"
