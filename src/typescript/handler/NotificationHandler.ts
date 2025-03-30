@@ -38,7 +38,7 @@ export default class NotificationHandler{
         await chrome.tabs.create({ url: `https://${settings.Hostname}/${project.path_with_namespace}/-/merge_requests/${mergeRequest.iid}` }); // Link öffnen
     }
 
-    private async notify(newMergeRequest: MergeRequestDto, oldMergeRequest: MergeRequestDto){
+    private async notify(newMergeRequest: MergeRequestDto, _: MergeRequestDto){
         chrome.notifications.create(
             `new-merge-commit-${newMergeRequest.id}`,
             {

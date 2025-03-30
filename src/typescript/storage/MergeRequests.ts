@@ -3,8 +3,6 @@ import GitlabApiClient from "../gitlab/api/v4/GitlabClient";
 import MergeRequestEventEmitter from "../events/MergeRequestEventEmitter";
 
 
-type StorageType = {MergeRequests: MergeRequestDto[]};
-
 export default class MergeRequests{
     private mergeRequestEmitter: MergeRequestEventEmitter;
 
