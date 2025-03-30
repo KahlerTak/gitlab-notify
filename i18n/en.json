@@ -4,6 +4,14 @@
     "german": "German",
     "english": "English"
   },
+  "notify": {
+    "title": {
+      "new_merge_commit": "New commit in merge request"
+    },
+    "message": {
+      "new_merge_commit": "The Merge Request '{mrTitle}' received a new commit. Please review the changes."
+    }
+  },
   "navigation": {
     "home": "Home",
     "settings": "Settings",
@@ -28,6 +36,7 @@
     }
   },
   "about": {
+    "headline": "About",
     "titles": {
       "description": "About the Gitlab-Notify extension",
       "legals": "Legal disclaimers",

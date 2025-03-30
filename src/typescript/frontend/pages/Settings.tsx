@@ -4,6 +4,7 @@ import {Button, InputLabel, MenuItem, Paper, Select, SxProps, TextField, Typogra
 import Alert from "../components/Alert";
 import ConfigurationSettings, {Language} from "../../storage/ConfigurationSettings";
 import StringUtils from "../../uitls/StringUtils";
+import {usePageTitle} from "../hooks/pageTitle";
 
 
 class SettingsActions {
@@ -30,6 +31,7 @@ const Settings = () => {
     const [apiToken, setApiToken] = useState<string | undefined>(undefined);
     const [gitlabHost, setGitlabHost] = useState<string | undefined>(undefined);
     const [language, setLanguage] = useState<Language>("en");
+    const [_, setPageTitle] = usePageTitle(t("settings.headline"));
 
     // Alerts
     const [alertOpen, setAlertOpen] = useState<boolean>();
@@ -41,6 +43,7 @@ const Settings = () => {
                 setAlertOpen(true);
                 setAlertTextKey("settings.alerts.saved");
                 await i18next.changeLanguage(language);
+                setPageTitle(t("settings.headline"))
             });
     };
 
@@ -52,7 +55,6 @@ const Settings = () => {
         setLanguage("en");
 
         setup().then((configurationSettings) => {
-            console.log(configurationSettings);
             if (!StringUtils.isNullOrWhitespace(configurationSettings.Hostname)) {
                 setGitlabHost(configurationSettings.Hostname);
             }
@@ -61,7 +63,6 @@ const Settings = () => {
                 setApiToken(configurationSettings.ApiToken);
             }
 
-            console.log("set to ", configurationSettings.Language)
             setLanguage(configurationSettings.Language);
         })
     }, []);

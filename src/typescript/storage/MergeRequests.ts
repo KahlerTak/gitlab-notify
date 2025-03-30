@@ -11,7 +11,6 @@ export default class MergeRequests{
     }
 
     public async Update(){
-        console.log("update")
         const oldMergeRequests = await MergeRequests.Load();
         const client = new GitlabApiClient();
         await client.configure()

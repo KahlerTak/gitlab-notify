@@ -3,6 +3,7 @@ import MergeRequestDto from "../gitlab/api/v4/Dtos/MergeRequestDto";
 import ConfigurationSettings from "../storage/ConfigurationSettings";
 import GitlabApiClient from "../gitlab/api/v4/GitlabClient";
 import MergeRequests from "../storage/MergeRequests";
+import {t} from "i18next"
 
 export default class NotificationHandler{
 
@@ -43,9 +44,9 @@ export default class NotificationHandler{
             `new-merge-commit-${newMergeRequest.id}`,
             {
                 type: "basic",
-                title: `New commit for merge request '${newMergeRequest.title}'`,
-                message: "Check in to see the new merge commit",
-                iconUrl: "gitlab.png"
+                title: t("notify.title.new_merge_commit").replace(/\{\s*mrTitle\s*}/, newMergeRequest.title),
+                message: t("notify.message.new_merge_commit").replace(/\{\s*mrTitle\s*}/, newMergeRequest.title),
+                iconUrl: "extension-icon.png"
             },
             function () {}
         );

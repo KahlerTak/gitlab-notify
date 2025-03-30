@@ -4,6 +4,14 @@
     "german": "Deutsch",
     "english": "Englisch"
   },
+  "notify": {
+    "title": {
+      "new_merge_commit": "Neuer Commit in einem Merge Request"
+    },
+    "message": {
+      "new_merge_commit": "Der Merge Request '{mrTitle}' hat einen neuen Commit erhalten. Schau nach ob die Änderungen alle Probleme behoben haben."
+    }
+  },
   "navigation": {
     "home": "Startseite",
     "settings": "Einstellungen",
@@ -28,6 +36,7 @@
     }
   },
   "about": {
+    "headline": "Über",
     "titles": {
       "description": "Die Gitlab-Notify Browserextension",
       "legal": "Rechtlicher Disclaimer",

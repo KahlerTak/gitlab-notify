@@ -23,12 +23,6 @@ class Main{
     }
 
     async main(){
-        if (chrome.alarms) {
-            console.log(chrome.alarms);
-        } else {
-            console.error("chrome.alarms ist nicht verfügbar!");
-        }
-
         await i18next
             .use(i18nextHttpBackend)
             .use(initReactI18next)

@@ -13,7 +13,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-i18next": "^15.4.1",
-    "react-router-dom": "^7.4.0"
+    "react-router-dom": "^7.4.0",
+    "zip-webpack-plugin": "^4.0.3"
   },
   "name": "gitlab-notifier",
   "description": "This example demonstrates how to create a simple \"Hello World\" Chrome Extension. For more details, visit the [official tutorial](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world).",
@@ -33,7 +34,9 @@
     "watch:v2": "webpack --watch --config properties/webpack.config.js --mode development --env manifestVersion=v2",
     "watch:v3": "webpack --watch --config properties/webpack.config.js --mode development --env manifestVersion=v3",
     "build:v2": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v2",
-    "build:v3": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v3"
+    "build:v3": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v3",
+    "release:v2": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v2 --env release",
+    "release:v3": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v3 --env release"
   },
   "author": "Nils Pöhlmann",
   "license": "ISC"

@@ -1,0 +1,38 @@
+Privacy Policy for GitLab Notifier
+Last updated: 30.03.2025
+
+GitLab Notifier is a browser extension designed to notify users about relevant events in their GitLab projects, such as merge request updates requiring attention.
+
+1. What Data We Collect
+GitLab Notifier does not collect, store, or transmit any personal data to our servers.
+
+The extension accesses data from the GitLab API solely to display notifications relevant to you. This includes:
+
+Merge request metadata (e.g. title, state, assigned reviewers)
+
+Basic user-related information from your GitLab account (used locally only)
+
+All API calls are made directly from your browser to your GitLab instance (self-hosted or gitlab.com).
+We do not track your activity, store logs, or use analytics.
+
+2. Permissions
+The extension requests permission to:
+
+Connect to the GitLab API
+
+Display desktop notifications
+
+Optionally store your GitLab API token locally in your browser’s extension storage
+
+All data is stored locally and never leaves your device.
+
+3. Third Parties
+We do not share data with any third parties. No tracking scripts, no external analytics, no ad networks.
+
+4. Your Control
+You may revoke the extension’s permissions at any time via your browser settings.
+You may also remove your stored GitLab token via the extension’s options page.
+
+5. Contact
+If you have any questions or concerns about this privacy policy, feel free to contact us at:
+https://github.com/KahlerTak
