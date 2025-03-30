@@ -7,7 +7,7 @@ import {
     IconButton,
     List,
     ListItemButton,
-    ListItemText,
+    ListItemText, ThemeProvider,
     Toolbar,
     Typography
 } from '@mui/material';
@@ -16,13 +16,14 @@ import {useTranslation} from 'react-i18next';
 import i18next from "i18next";
 import ConfigurationSettings from "../storage/ConfigurationSettings";
 import {OptionsRoutes} from "./routes";
+import theme from "./theme"
 
 
 const Options: React.FC = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     useEffect(() => {
-        const setup = async () =>{
+        const setup = async () => {
             const config = await ConfigurationSettings.Load();
             await i18next.changeLanguage(config.Language);
         }
@@ -31,59 +32,62 @@ const Options: React.FC = () => {
     }, []);
 
     return (
-        <Router>
-            <Box sx={{display: 'flex'}}>
-                <CssBaseline/>
-                <AppBar style={{
-                    zIndex: 1301
-                }}>
-                    <Toolbar>
-                        <IconButton color="inherit" edge="start" sx={{ mr: 2 }}>
-                            <img src="gitlab.png" alt="Brand Logo" style={{ width: 40, height: 40 }} />
-                        </IconButton>
-                        <Typography variant="h6">{t("welcome")}</Typography>
-                    </Toolbar>
-                </AppBar>
+        <ThemeProvider theme={theme}>
+            <Router>
+                <Box sx={{display: 'flex'}}>
+                    <CssBaseline/>
+                    <AppBar style={{
+                        zIndex: 1301
+                    }}
+                    >
+                        <Toolbar>
+                            <IconButton color="inherit" edge="start" sx={{mr: 2}}>
+                                <img src="extension-icon.png" alt="Brand Logo" style={{width: 60, height: 60}}/>
+                            </IconButton>
+                            <Typography variant="h6">{t("welcome")}</Typography>
+                        </Toolbar>
+                    </AppBar>
 
-                <Drawer
-                    sx={{
-                        width: 240,
-                        flexShrink: 0,
-                        '& .MuiDrawer-paper': {
+                    <Drawer
+                        sx={{
                             width: 240,
-                            boxSizing: 'border-box',
-                        },
-                        marginTop: 8,
-                        paddingTop: 8
-                    }}
-                    variant="permanent"
-                    anchor="left"
-                >
-                    <List sx={{
-                        marginTop: 8
-                    }}>
-                        <ListItemButton component={Link} to="/settings">
-                            <ListItemText primary={t("navigation.settings")}/>
-                        </ListItemButton>
-                        <ListItemButton component={Link} to="/about">
-                            <ListItemText primary={t("navigation.about")}/>
-                        </ListItemButton>
-                    </List>
-                </Drawer>
+                            flexShrink: 0,
+                            '& .MuiDrawer-paper': {
+                                width: 240,
+                                boxSizing: 'border-box',
+                            },
+                            marginTop: 8,
+                            paddingTop: 8
+                        }}
+                        variant="permanent"
+                        anchor="left"
+                    >
+                        <List sx={{
+                            marginTop: 8
+                        }}>
+                            <ListItemButton component={Link} to="/settings">
+                                <ListItemText primary={t("navigation.settings")}/>
+                            </ListItemButton>
+                            <ListItemButton component={Link} to="/about">
+                                <ListItemText primary={t("navigation.about")}/>
+                            </ListItemButton>
+                        </List>
+                    </Drawer>
 
-                <Box
-                    component="main"
-                    sx={{
-                        flexGrow: 1,
-                        bgcolor: 'background.default',
-                        p: 3,
-                        marginTop: 8,
-                    }}
-                >
-                    <OptionsRoutes/>
+                    <Box
+                        component="main"
+                        sx={{
+                            flexGrow: 1,
+                            bgcolor: 'background.default',
+                            p: 3,
+                            marginTop: 8,
+                        }}
+                    >
+                        <OptionsRoutes/>
+                    </Box>
                 </Box>
-            </Box>
-        </Router>
+            </Router>
+        </ThemeProvider>
     );
 };
 

@@ -1,6 +1,7 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const WebpackZipPlugin = require('zip-webpack-plugin');
 
 const config = {
     entry: {
@@ -56,6 +57,13 @@ module.exports = (env, argv) => {
     if (argv.mode === "development"){
         console.log("Development mode enabled")
         config.devtool = "cheap-source-map";
+    }
+    if (env.release){
+        config.plugins.push(new WebpackZipPlugin({
+            path: path.resolve(__dirname, "..", "release"),
+            filename: `gitlab-notifications.${env.manifestVersion ?? "v3"}`,
+            extension: "zip"
+        }))
     }
     return config;
 };
