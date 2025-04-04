@@ -1,5 +1,7 @@
 import React from "react";
-import {Alert as MuiAlert, Collapse, IconButton} from "@mui/material";
+import MuiAlert from "@mui/material/Alert"
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
 import Close from "@mui/icons-material/Close";
 
 export type CollapsableAlertProps = {

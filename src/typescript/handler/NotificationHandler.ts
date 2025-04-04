@@ -46,7 +46,7 @@ export default class NotificationHandler{
                 type: "basic",
                 title: t("notify.title.new_merge_commit").replace(/\{\s*mrTitle\s*}/, newMergeRequest.title),
                 message: t("notify.message.new_merge_commit").replace(/\{\s*mrTitle\s*}/, newMergeRequest.title),
-                iconUrl: "extension-icon.png"
+                iconUrl: "extension-icon-128.png"
             },
             function () {}
         );

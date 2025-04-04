@@ -24,9 +24,11 @@
     "@types/chrome": "^0.0.312",
     "copy-webpack-plugin": "^13.0.0",
     "html-webpack-plugin": "^5.6.3",
+    "terser-webpack-plugin": "^5.3.14",
     "ts-loader": "^9.5.2",
     "typescript": "^5.8.2",
     "webpack": "^5.98.0",
+    "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^6.0.1",
     "webpack-zip-plugin": "^0.1.6"
   },
@@ -36,8 +38,10 @@
     "build:v2": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v2",
     "build:v3": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v3",
     "release:v2": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v2 --env release",
-    "release:v3": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v3 --env release"
+    "release:v3": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v3 --env release",
+    "analyze-webpack": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v3 --env release --env analyze"
   },
   "author": "Nils Pöhlmann",
+  "sideEffects": false,
   "license": "ISC"
 }

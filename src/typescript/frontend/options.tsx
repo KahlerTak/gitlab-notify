@@ -1,22 +1,21 @@
 import React, {useEffect} from "react";
-import {
-    AppBar,
-    Box,
-    CssBaseline,
-    Drawer,
-    IconButton,
-    List,
-    ListItemButton,
-    ListItemText, ThemeProvider,
-    Toolbar,
-    Typography
-} from '@mui/material';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import {HashRouter as Router, Link} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import i18next from "i18next";
 import ConfigurationSettings from "../storage/ConfigurationSettings";
 import {OptionsRoutes} from "./routes";
 import theme from "./theme"
+import ThemeProvider from '@mui/system/ThemeProvider';
 
 
 const Options: React.FC = () => {
@@ -42,7 +41,7 @@ const Options: React.FC = () => {
                     >
                         <Toolbar>
                             <IconButton color="inherit" edge="start" sx={{mr: 2}}>
-                                <img src="extension-icon.png" alt="Brand Logo" style={{width: 60, height: 60}}/>
+                                <img src="extension-icon-128.png" alt="Brand Logo" style={{width: 60, height: 60}}/>
                             </IconButton>
                             <Typography variant="h6">{t("welcome")}</Typography>
                         </Toolbar>

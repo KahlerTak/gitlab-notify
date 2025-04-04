@@ -1,10 +1,17 @@
 import React, {useEffect, useState} from "react";
 import i18next, {t} from "i18next";
-import {Button, InputLabel, MenuItem, Paper, Select, SxProps, TextField, Typography} from "@mui/material";
+import Button from "@mui/material/Button";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Paper from "@mui/material/Paper";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import Alert from "../components/Alert";
 import ConfigurationSettings, {Language} from "../../storage/ConfigurationSettings";
 import StringUtils from "../../uitls/StringUtils";
 import {usePageTitle} from "../hooks/pageTitle";
+import type {SxProps} from "@mui/material";
 
 
 class SettingsActions {
