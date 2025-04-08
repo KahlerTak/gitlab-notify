@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackZipPlugin = require('zip-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const config = {
     optimization: {
@@ -13,12 +14,13 @@ const config = {
         minimize: true,
         minimizer: [
             new TerserPlugin({
+                extractComments: false,
                 terserOptions: {
-                    compress: true,
+                    compress: false,
                     mangle: true,
-                    module: true, // <--- wichtig für ES Modules
+                    module: true,
                     format: {
-                        comments: false, // <--- entfernt Kommentare
+                        comments: false,
                     },
                 },
             }),
@@ -31,9 +33,14 @@ const config = {
     output: {
         path: path.join(__dirname, "../dist"),
         filename: "[name].js",
+        module: true
+    },
+    experiments: {
+        outputModule: true
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"], // React & TypeScript-Erweiterungen
+        mainFields: ['browser', 'module', 'main'], //
     },
     module: {
         rules: [
@@ -45,6 +52,7 @@ const config = {
         ],
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new CopyPlugin({
             patterns: [{
                 from: ".",

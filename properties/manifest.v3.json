@@ -1,15 +1,21 @@
 {
   "name": "Gitlab Notifications",
   "description": "An extension for additional notifications on Gitlab",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "manifest_version": 3,
-  "permissions": [ "tabs", "notifications", "alarms", "storage" ],
+  "permissions": [ "scripting", "notifications", "alarms", "storage" ],
   "background": {
     "service_worker": "background.js",
-    "type": "module"
+    "module": true
   },
   "action": {
-    "default_icon": "extension-icon-128.png"
+    "default_icon": {
+      "16": "extension-icon-128.png",
+      "32": "extension-icon-128.png",
+      "48": "extension-icon-128.png",
+      "128": "extension-icon-128.png"
+    },
+    "default_title": "Gitlab Notifications"
   },
   "options_page": "options.html"
 }
