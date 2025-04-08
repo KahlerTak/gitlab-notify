@@ -23,6 +23,7 @@ class Main{
     }
 
     async main(){
+        console.log("Background script loaded");
         await i18next
             .use(i18nextHttpBackend)
             .use(initReactI18next)
@@ -36,21 +37,20 @@ class Main{
 
         const action = chrome.action ? chrome.action : chrome.browserAction;
 
-        action.onClicked.addListener(() => {
-            chrome.tabs.create({ url: chrome.runtime.getURL("options.html") });
+        action.onClicked.addListener(async () => {
+            await chrome.tabs.create({ url: chrome.runtime.getURL("options.html") });
         });
 
         await this.notificationHandler.start();
 
 
         chrome.runtime.onInstalled.addListener(async () => {
-            console.log("installed")
             const config = await ConfigurationSettings.Load();
             await config.Store();
-            console.log(config);
             await i18next.changeLanguage(config.Language ?? "en");
             const periodicExec = new PeriodicExec();
             await periodicExec.exec();
+            console.log("Installed the plugin successfully")
         });
 
         chrome.storage.local.onChanged.addListener(async changes => {
@@ -71,14 +71,14 @@ class Main{
 
 
         chrome.alarms.onAlarm.addListener(this.execPeriodically);
-// Alarm direkt beim Laden setzen (5 Minuten Wiederholungsintervall)
         await chrome.alarms.create('periodic-exec', {
             delayInMinutes: 0,
             periodInMinutes: 1,
         });
-        console.log("started")
+        console.log("Main loop started successfully")
 
     }
 }
-
-new Main().main().then();
+//
+export const main = new Main();
+main.main().then()

@@ -12,6 +12,7 @@ import ConfigurationSettings, {Language} from "../../storage/ConfigurationSettin
 import StringUtils from "../../uitls/StringUtils";
 import {usePageTitle} from "../hooks/pageTitle";
 import type {SxProps} from "@mui/material";
+import GitlabApiClient from "../../gitlab/api/v4/GitlabClient";
 
 
 class SettingsActions {
@@ -42,16 +43,28 @@ const Settings = () => {
 
     // Alerts
     const [alertOpen, setAlertOpen] = useState<boolean>();
+    const [alertSeverity, setAlertSeverity] = useState<"error"|"success">("success");
     const [alertTextKey, setAlertTextKey] = useState<string>("");
 
-    const onSave = () => {
-        SettingsActions.SafeOptions(gitlabHost ?? "", apiToken ?? "", language ?? "en")
-            .then(async () => {
-                setAlertOpen(true);
-                setAlertTextKey("settings.alerts.saved");
-                await i18next.changeLanguage(language);
-                setPageTitle(t("settings.headline"))
-            });
+    const onSave = async () => {
+        const gitlabClient = new GitlabApiClient();
+        gitlabClient.configure(gitlabHost ?? "", apiToken ?? "");
+
+        try {
+            await gitlabClient.getCurrentUser();
+        } catch {
+            setAlertOpen(true);
+            setAlertSeverity("error");
+            setAlertTextKey("settings.alerts.invalid-credentials");
+            return;
+        }
+
+        await SettingsActions.SafeOptions(gitlabHost ?? "", apiToken ?? "", language ?? "en")
+        setAlertOpen(true);
+        setAlertSeverity("success");
+        setAlertTextKey("settings.alerts.saved");
+        await i18next.changeLanguage(language);
+        setPageTitle(t("settings.headline"))
     };
 
     useEffect(() => {
@@ -83,7 +96,7 @@ const Settings = () => {
             gap: 2,
         }}>
             <Typography variant="h6">{t("settings.headline")}</Typography>
-            <Alert message={t(alertTextKey)} severity="success" open={alertOpen ?? false}
+            <Alert message={t(alertTextKey)} severity={alertSeverity} open={alertOpen ?? false}
                    onClose={() => setAlertOpen(false)}/>
             <InputLabel id="hostname-label" htmlFor="hostname-input">{t("settings.labels.hostname")}</InputLabel>
             <TextField id="hostname-input"

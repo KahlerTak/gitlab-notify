@@ -5,10 +5,10 @@ import GitlabApiClient from "../gitlab/api/v4/GitlabClient";
 import MergeRequests from "../storage/MergeRequests";
 import {t} from "i18next"
 
-export default class NotificationHandler{
+export default class NotificationHandler {
 
 
-    public async start(){
+    public async start() {
         const emitter = MergeRequestEventEmitter.getInstance();
         emitter.onNewMergeRequest(this.notify);
         emitter.onNewMergeRequestCommit(this.notify);
@@ -16,7 +16,7 @@ export default class NotificationHandler{
         chrome.notifications.onClicked.addListener(this.notificationClicked);
     }
 
-    private async notificationClicked(notificationId: string){
+    private async notificationClicked(notificationId: string) {
 
         if (!notificationId.startsWith("new-merge-commit-")) {
             return;
@@ -32,14 +32,17 @@ export default class NotificationHandler{
         }
 
         const gitlabClient = new GitlabApiClient();
-        await gitlabClient.configure();
+        await gitlabClient.load();
 
-        const project = await gitlabClient.getProject(mergeRequest.project_id);
-        console.log(`https://${settings.Hostname}/${project.path_with_namespace}/-/merge_requests/${id}`)
-        await chrome.tabs.create({ url: `https://${settings.Hostname}/${project.path_with_namespace}/-/merge_requests/${mergeRequest.iid}` }); // Link öffnen
+        try {
+            const project = await gitlabClient.getProject(mergeRequest.project_id);
+            await chrome.tabs.create({url: `https://${settings.Hostname}/${project.path_with_namespace}/-/merge_requests/${mergeRequest.iid}`}); // Link öffnen
+        } catch (e) {
+            console.error(e);
+        }
     }
 
-    private async notify(newMergeRequest: MergeRequestDto, _: MergeRequestDto){
+    private async notify(newMergeRequest: MergeRequestDto, _: MergeRequestDto) {
         chrome.notifications.create(
             `new-merge-commit-${newMergeRequest.id}`,
             {
@@ -48,7 +51,8 @@ export default class NotificationHandler{
                 message: t("notify.message.new_merge_commit").replace(/\{\s*mrTitle\s*}/, newMergeRequest.title),
                 iconUrl: "extension-icon-128.png"
             },
-            function () {}
+            function () {
+            }
         );
     }
 }

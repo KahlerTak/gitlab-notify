@@ -1,9 +1,8 @@
 {
   "name": "Gitlab Notifications",
   "description": "An extension for additional notifications on Gitlab",
-  "version": "1.0.1",
   "manifest_version": 2,
-  "permissions": [ "tabs", "notifications", "alarms", "scripting", "storage" ],
+  "permissions": [ "notifications", "alarms", "storage" ],
   "background": {
     "scripts": ["background.js"],
     "persistent": true

@@ -29,7 +29,8 @@
       "apiToken": "API-Token"
     },
     "alerts": {
-      "saved": "Einstellungen wurden erfolgreich gespeichert"
+      "saved": "Einstellungen wurden erfolgreich gespeichert",
+      "invalid-credentials": "Es konnte mit diesen Zugangsdaten keine Verbindung zu dem Gitlab Server aufgebaut werden"
     },
     "buttons": {
       "save": "Speichern"

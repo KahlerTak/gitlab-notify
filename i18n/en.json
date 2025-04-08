@@ -29,7 +29,8 @@
       "apiToken": "API-Token"
     },
     "alerts": {
-      "saved": "Settings saved successfully"
+      "saved": "Settings saved successfully",
+      "invalid-credentials": "Not able to connect to the gitlab server using this combination of host and api-token"
     },
     "buttons": {
       "save": "Submit"
