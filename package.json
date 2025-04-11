@@ -18,26 +18,32 @@
   },
   "name": "gitlab-notifier",
   "description": "This example demonstrates how to create a simple \"Hello World\" Chrome Extension. For more details, visit the [official tutorial](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world).",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "main": "entrypoint.js",
   "devDependencies": {
     "@types/chrome": "^0.0.312",
+    "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^13.0.0",
     "html-webpack-plugin": "^5.6.3",
+    "terser-webpack-plugin": "^5.3.14",
     "ts-loader": "^9.5.2",
     "typescript": "^5.8.2",
     "webpack": "^5.98.0",
+    "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^6.0.1",
     "webpack-zip-plugin": "^0.1.6"
   },
   "scripts": {
-    "watch:v2": "webpack --watch --config properties/webpack.config.js --mode development --env manifestVersion=v2",
-    "watch:v3": "webpack --watch --config properties/webpack.config.js --mode development --env manifestVersion=v3",
-    "build:v2": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v2",
-    "build:v3": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v3",
-    "release:v2": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v2 --env release",
-    "release:v3": "webpack --config properties/webpack.config.js --mode production --env manifestVersion=v3 --env release"
+    "watch:firefox": "webpack --watch --config properties/firefox.webpack.config.js --mode development --env manifestVersion=v2",
+    "watch:chromium": "webpack --watch --config properties/chromium.webpack.config.js --mode development --env manifestVersion=v3",
+    "build:firefox": "webpack --config properties/firefox.webpack.config.js --mode production --env manifestVersion=v2",
+    "build:chromium": "webpack --config properties/chromium.webpack.config.js --mode production --env manifestVersion=v3",
+    "release:firefox": "webpack --config properties/firefox.webpack.config.js --mode production --env manifestVersion=v2 --env release",
+    "release:chromium": "webpack --config properties/chromium.webpack.config.js --mode production --env manifestVersion=v3 --env release",
+    "analyze-webpack:firefox": "webpack --config properties/firefox.webpack.config.js --mode production --env manifestVersion=v2 --env release --env analyze",
+    "analyze-webpack:chromium": "webpack --config properties/chromium.webpack.config.js --mode production --env manifestVersion=v3 --env release --env analyze"
   },
   "author": "Nils Pöhlmann",
+  "sideEffects": false,
   "license": "ISC"
 }

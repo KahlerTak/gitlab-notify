@@ -3,20 +3,23 @@ import MergeRequestDto from "./Dtos/MergeRequestDto";
 import UserDto from "./Dtos/User";
 import ProjectDto from "./Dtos/Project";
 
-export default class GitlabApiClient{
+export default class GitlabApiClient {
     private host: string = "";
     private apiToken: string = "";
 
-    public async configure() {
-        const config = await ConfigurationSettings.Load();
-        this.host = config.Hostname;
-        this.apiToken = config.ApiToken;
-
+    public configure(host: string, apiToken: string) {
+        this.host = host;
+        this.apiToken = apiToken;
     }
 
-    public async getProject(id: number){
+    public async load() {
+        const config = await ConfigurationSettings.Load();
+        this.configure(config.Hostname, config.ApiToken);
+    }
+
+    public async getProject(id: number) {
         const project = await this.apiGetRequest<ProjectDto>(`projects/${id}`);
-        if (project === null){
+        if (project === null) {
             throw new Error("Unable to get project");
         }
         return project;
@@ -24,23 +27,22 @@ export default class GitlabApiClient{
 
     public async getCurrentUser(): Promise<UserDto> {
         const user = await this.apiGetRequest<UserDto>("user");
-        if (user === null){
+        if (user === null) {
             throw new Error("Unable to get user");
         }
         return user;
     }
 
-    public async getMergeRequests(): Promise<MergeRequestDto[]>{
+    public async getMergeRequests(): Promise<MergeRequestDto[]> {
         const user = await this.getCurrentUser();
         const mrs = await this.apiGetRequest<MergeRequestDto[]>(`merge_requests?reviewer_username=${user.username}&scope=all&state=opened`);
-        if (mrs === null){
+        if (mrs === null) {
             throw new Error("Unable to get merge requests");
         }
         return Array.from(mrs);
     }
 
-    private async apiGetRequest<T>(request: string): Promise<T|null>{
-        try {
+    private async apiGetRequest<T>(request: string): Promise<T | null> {
         const response = await fetch(
             `https://${this.host}/api/v4/${request}`,
             {
@@ -52,18 +54,12 @@ export default class GitlabApiClient{
             }
         )
 
-        if(!response.ok){
+        if (!response.ok) {
             console.error("Unable to get request: " + request);
             return null;
         }
 
         const data = await response.json();
         return data as T;
-
-
-        } catch (e) {
-            console.error(e);
-            return null;
-        }
     }
 }

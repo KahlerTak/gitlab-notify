@@ -1,7 +1,9 @@
 import React from "react";
-import {Paper, SxProps, Typography} from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import {t} from "i18next";
 import {usePageTitle} from "../hooks/pageTitle";
+import type {SxProps} from "@mui/material";
 
 const bodyStyle:SxProps = {
     marginBottom: 4,
