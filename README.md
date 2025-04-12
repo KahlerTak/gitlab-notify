@@ -39,37 +39,37 @@ npm install
 ```
 
 ### For a single build
-#### Manifest Version 2
+#### Firefox plugin
 For firefox or browsers supporting only manifest version 2 run the following:
 ```
-npm run build:v2
+npm run build:firefox
 ```
-#### Manifest Version 3
+#### Chrome Plugin
 For chrome and browsers supporting manifest version 3 run the following:
 ```
-npm run build:v3
+npm run build:chrome
 ```
 
 ### For a continuous development
-#### Manifest Version 2
+#### Firefox plugin
 For firefox or browsers supporting only manifest version 2 run the following:
 ```
-npm run watch:v2
+npm run watch:firefox
 ```
-#### Manifest Version 3
+#### Chrome Plugin
 For chrome and browsers supporting manifest version 3 run the following:
 ```
-npm run watch:v3
+npm run watch:chrome
 ```
 
 ### For creating a release file
-#### Manifest Version 2
+#### Firefox plugin
 For firefox or browsers supporting only manifest version 2 run the following:
 ```
-npm run release:v2
+npm run release:firefox
 ```
-#### Manifest Version 3
+#### Chrome Plugin
 For chrome and browsers supporting manifest version 3 run the following:
 ```
-npm run release:v3
+npm run release:chrome
 ```
