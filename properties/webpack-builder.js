@@ -1,4 +1,3 @@
-const fs = require("fs");
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -7,6 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const packageJson = require("../package.json");
+const GenerateManifestPlugin = require("./GenerateManifest");
 
 const TerserPluginOptions = {
     extractComments: false,
@@ -45,6 +45,10 @@ const HtmlWebPluginOptions = {
     scriptLoading: "module"
 }
 
+const GenerateManifestPluginOptions = {
+    manifestTemplatePath: "manifest.json"
+}
+
 const ModuleBuilder = (env, argv) => {
     const config = {
         optimization: {
@@ -74,6 +78,7 @@ const ModuleBuilder = (env, argv) => {
             new CleanWebpackPlugin({
                 cleanOnceBeforeBuildPatterns: ['**/*', '!manifest.json']
             }),
+            new GenerateManifestPlugin(GenerateManifestPluginOptions),
             new CopyPlugin({
                 patterns: [{
                     from: ".",
@@ -93,13 +98,6 @@ const ModuleBuilder = (env, argv) => {
     };
 
     if (env.manifestVersion) {
-        const manifestFileContent = fs.readFileSync(path.resolve(__dirname, `manifest.${env.manifestVersion}.json`));
-        const manifestOutputPath = path.resolve(__dirname, "../dist/manifest.json");
-        const manifest = JSON.parse(manifestFileContent);
-
-        console.log(`Manifest version ${env.manifestVersion} enabled`)
-        manifest.version = packageJson.version;
-        fs.writeFileSync(manifestOutputPath, JSON.stringify(manifest, null, 2));
     }
     if (argv.mode === "development") {
         console.log("Development mode enabled")
@@ -128,4 +126,5 @@ module.exports = {
     ExperimentalOptions: ExperimentalOptions,
     ResolveOptions: ResolveOptions,
     HtmlWebPluginOptions: HtmlWebPluginOptions,
+    GenerateManifestPluginOptions: GenerateManifestPluginOptions,
 };
