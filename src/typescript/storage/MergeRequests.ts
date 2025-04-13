@@ -12,20 +12,25 @@ export default class MergeRequests {
 
     public async Update() {
         try {
+            const firstRun = !(await MergeRequests.IsInitialized());
             const oldMergeRequests = await MergeRequests.Load();
             const client = new GitlabApiClient();
             await client.load();
-            const newMergeRequests = await client.getMergeRequests();
+            const newMergeRequests = await client.getReviewerMergeRequests();
             await MergeRequests.Store(newMergeRequests);
+            if (firstRun){
+                return;
+            }
+
             for (const newMergeRequest of newMergeRequests) {
                 const existingMergeRequest = oldMergeRequests.find(mr => mr.id === newMergeRequest.id);
                 if (existingMergeRequest && newMergeRequest.sha !== existingMergeRequest.sha) {
                     await this.mergeRequestEmitter.emitNewMergeRequestCommit(newMergeRequest, existingMergeRequest);
-                }
-
-                if (!existingMergeRequest) {
+                } else if (!existingMergeRequest) {
                     await this.mergeRequestEmitter.emitNewMergeRequest(newMergeRequest);
                 }
+
+                await new Promise(r => setTimeout(r, 50));
             }
 
             oldMergeRequests.filter(mergeRequest => !newMergeRequests.find(newMr => newMr.id === mergeRequest.id))
@@ -35,6 +40,17 @@ export default class MergeRequests {
         }
     }
 
+    public static async IsInitialized(): Promise<boolean> {
+        return await new Promise<boolean>((resolve) => {
+            chrome.storage.local.get("MergeRequests", (item) => {
+                if (chrome.runtime.lastError) {
+                    return resolve(false);
+                }
+                resolve(!!item["MergeRequests"]);
+            })
+        });
+    }
+
     public static async Load(): Promise<MergeRequestDto[]> {
         return await new Promise<MergeRequestDto[]>((resolve, reject) => {
             chrome.storage.local.get("MergeRequests", (item) => {
@@ -42,7 +58,7 @@ export default class MergeRequests {
                     return reject(chrome.runtime.lastError);
                 }
 
-                resolve(item["MergeRequests"] ?? []);
+                resolve(Array.from(item["MergeRequests"] ?? []));
             })
         });
     }

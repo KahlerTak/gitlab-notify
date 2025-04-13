@@ -67,6 +67,9 @@ const Options: React.FC = () => {
                             <ListItemButton component={Link} to="/settings">
                                 <ListItemText primary={t("navigation.settings")}/>
                             </ListItemButton>
+                            <ListItemButton component={Link} to="/notifications">
+                                <ListItemText primary={t("navigation.notifications")}/>
+                            </ListItemButton>
                             <ListItemButton component={Link} to="/about">
                                 <ListItemText primary={t("navigation.about")}/>
                             </ListItemButton>

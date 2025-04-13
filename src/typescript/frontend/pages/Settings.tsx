@@ -36,19 +36,19 @@ const buttonStyle: SxProps = {
 
 const Settings = () => {
     // Settings
-    const [apiToken, setApiToken] = useState<string | undefined>(undefined);
-    const [gitlabHost, setGitlabHost] = useState<string | undefined>(undefined);
+    const [apiToken, setApiToken] = useState<string>("");
+    const [gitlabHost, setGitlabHost] = useState<string>("");
     const [language, setLanguage] = useState<Language>("en");
     const [_, setPageTitle] = usePageTitle(t("settings.headline"));
 
     // Alerts
-    const [alertOpen, setAlertOpen] = useState<boolean>();
+    const [alertOpen, setAlertOpen] = useState<boolean>(false);
     const [alertSeverity, setAlertSeverity] = useState<"error"|"success">("success");
     const [alertTextKey, setAlertTextKey] = useState<string>("");
 
     const onSave = async () => {
         const gitlabClient = new GitlabApiClient();
-        gitlabClient.configure(gitlabHost ?? "", apiToken ?? "");
+        gitlabClient.configure(gitlabHost, apiToken);
 
         try {
             await gitlabClient.getCurrentUser();
@@ -59,7 +59,7 @@ const Settings = () => {
             return;
         }
 
-        await SettingsActions.SafeOptions(gitlabHost ?? "", apiToken ?? "", language ?? "en")
+        await SettingsActions.SafeOptions(gitlabHost, apiToken, language ?? "en")
         setAlertOpen(true);
         setAlertSeverity("success");
         setAlertTextKey("settings.alerts.saved");
@@ -96,7 +96,7 @@ const Settings = () => {
             gap: 2,
         }}>
             <Typography variant="h6">{t("settings.headline")}</Typography>
-            <Alert message={t(alertTextKey)} severity={alertSeverity} open={alertOpen ?? false}
+            <Alert message={t(alertTextKey)} severity={alertSeverity} open={alertOpen}
                    onClose={() => setAlertOpen(false)}/>
             <InputLabel id="hostname-label" htmlFor="hostname-input">{t("settings.labels.hostname")}</InputLabel>
             <TextField id="hostname-input"
@@ -143,6 +143,22 @@ const Settings = () => {
                     color="primary"
                     fullWidth={false}
                     onClick={onSave}>{t("settings.buttons.save")}</Button>
+
+            {__DEV__ && <Button variant="outlined" color="secondary" onClick={() => {
+                chrome.runtime.sendMessage({ action: 'refreshChecks' }, (response) => {
+                    console.log(response);
+                });
+            }}>
+                Refresh
+            </Button>}
+
+            {__DEV__ && <Button variant="outlined" color="secondary" onClick={() => {
+                chrome.runtime.sendMessage({ action: 'clearData' }, (response) => {
+                    console.log(response);
+                });
+            }}>
+                Clear
+            </Button>}
         </Paper>
     );
 };

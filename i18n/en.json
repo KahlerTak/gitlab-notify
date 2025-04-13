@@ -6,16 +6,23 @@
   },
   "notify": {
     "title": {
-      "new_merge_commit": "New commit in merge request"
+      "new_merge_request": "New merge request assigned to you",
+      "new_merge_commit": "New commit in merge request",
+      "new_merge_request_note": "New comment in merge request",
+      "update_merge_request_note": "Comment in merge request updated"
     },
     "message": {
-      "new_merge_commit": "The Merge Request '{mrTitle}' received a new commit. Please review the changes."
+      "new_merge_request": "The Merge Request '{mrTitle}' was assigned to you. Please review the changes.",
+      "new_merge_commit": "The Merge Request '{mrTitle}' received a new commit. Please review the changes.",
+      "new_merge_request_note": "The merge request '{mrTitle}' was commented. Please review the comments.",
+      "update_merge_request_note": "A comment on merge request '{mrTitle}' was updated. Please review the comments."
     }
   },
   "navigation": {
     "home": "Home",
     "settings": "Settings",
-    "about": "About"
+    "about": "About",
+    "notifications": "Notifications"
   },
   "settings": {
     "headline": "Settings",
@@ -47,6 +54,17 @@
       "description": "This browser extension is a tool to receive GitLab notifications on your operating system. It was created out of the need to handle review requests more quickly and efficiently within the team.",
       "legals": "This browser extension is not developed, supported, or maintained by GitLab Inc. It is an independent project that is not affiliated with GitLab.",
       "license": "The browser extension is licensed under the GNU General Public License Version 3 (GPL-3). For more information on the license and terms, please refer to the LICENSE file in the project."
+    }
+  },
+  "notifications": {
+    "headline": "Notification Configuration",
+    "titles": {
+    },
+    "labels": {
+      "new_review_merge_request": "Send notification when a new merge request review is requested from you",
+      "update_review_merge_request": "Send notification when a merge request where you are a reviewer gets an update",
+      "new_comment_own_merge_request": "Send notification when a new comment was added to one of the merge requests you are assigned to",
+      "update_comment_own_merge_request": "Send notification when a comment was updated on one one of the merge requests you are assigned to"
     }
   }
 }

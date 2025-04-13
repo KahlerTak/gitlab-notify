@@ -1,16 +1,19 @@
 import PeriodicExec from "./periodic-exec";
 import ConfigurationSettings from "./storage/ConfigurationSettings";
-import Alarm = chrome.alarms.Alarm;
 import NotificationHandler from "./handler/NotificationHandler";
 import i18next from "i18next";
 import i18nextHttpBackend from "i18next-http-backend";
-import {initReactI18next} from "react-i18next";
+import MergeRequestNotes from "./storage/MergeRequestNotes";
+import MergeRequests from "./storage/MergeRequests";
+import Alarm = chrome.alarms.Alarm;
 
 class Main{
     private notificationHandler: NotificationHandler;
+    private periodicExec: PeriodicExec;
 
     constructor(){
         this.notificationHandler = new NotificationHandler();
+        this.periodicExec = new PeriodicExec();
     }
 
     private async execPeriodically(info: Alarm) {
@@ -18,21 +21,20 @@ class Main{
             return;
         }
 
-        const periodicExec = new PeriodicExec();
-        await periodicExec.exec();
+        await this.periodicExec.exec();
     }
 
     async main(){
         console.log("Background script loaded");
         await i18next
             .use(i18nextHttpBackend)
-            .use(initReactI18next)
             .init({
-                lng: 'en', // Standard-Sprache
-                fallbackLng: 'en', // Fallback-Sprache, wenn keine Übersetzung für die gewählte Sprache vorhanden ist
+                debug: true,
+                lng: "en",
+                fallbackLng: 'en',
                 backend: {
-                    loadPath: '/i18n/{{lng}}.json', // Pfad zu den Übersetzungsdateien
-                },
+                    loadPath: ([lng]: string[]) => chrome.runtime.getURL(`i18n/${lng}.json`),
+                }
             });
 
         const action = chrome.action ? chrome.action : chrome.browserAction;
@@ -70,10 +72,34 @@ class Main{
         })
 
 
-        chrome.alarms.onAlarm.addListener(this.execPeriodically);
+        chrome.alarms.onAlarm.addListener(info => this.execPeriodically(info));
         await chrome.alarms.create('periodic-exec', {
             delayInMinutes: 0,
             periodInMinutes: 1,
+        });
+
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+            console.log(message);
+            if (message.action === 'refreshChecks') {
+                this.periodicExec.exec().finally(() => {
+                    sendResponse({ status: 'done' });
+                });
+                return true;
+            }
+
+            if (message.action === 'clearData') {
+                const clear = async () => {
+                    await MergeRequestNotes.Store([]);
+                    await MergeRequests.Store([]);
+                }
+
+                clear().finally(() => {
+                    sendResponse({ status: 'cleared' });
+                });
+                return true;
+            }
+
+            return false;
         });
         console.log("Main loop started successfully")
 

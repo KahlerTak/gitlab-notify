@@ -6,16 +6,23 @@
   },
   "notify": {
     "title": {
-      "new_merge_commit": "Neuer Commit in einem Merge Request"
+      "new_merge_request": "Neuer Merge Request",
+      "new_merge_commit": "Neuer Commit in einem Merge Request",
+      "new_merge_request_note": "Neuer Kommentar in einem Merge Request",
+      "update_merge_request_note": "Update im Kommentar eines Merge Requests"
     },
     "message": {
-      "new_merge_commit": "Der Merge Request '{mrTitle}' hat einen neuen Commit erhalten. Schau nach ob die Änderungen alle Probleme behoben haben."
+      "new_merge_request": "Dir wurde der Merge Request '{mrTitle}' zugewiesen. Schau nach ob die Änderungen in Ordnung sind.",
+      "new_merge_commit": "Der Merge Request '{mrTitle}' hat einen neuen Commit erhalten. Schau nach ob die Änderungen alle Probleme behoben haben.",
+      "new_merge_request_note": "Der Merge Request '{mrTitle}' wurde kommentiert. Schau nach was angemerkt wurde.",
+      "update_merge_request_note": "Der Kommentar des Merge Requests '{mrTitle}' wurde aktualisiert. Schau nach was angemerkt wurde."
     }
   },
   "navigation": {
     "home": "Startseite",
     "settings": "Einstellungen",
-    "about": "Über"
+    "about": "Über",
+    "notifications": "Benachrichtigungen"
   },
   "settings": {
     "headline": "Einstellungen",
@@ -48,5 +55,18 @@
       "legals": "Dieses Browser-Extension wird nicht von GitLab Inc. entwickelt, unterstützt oder gepflegt. Es handelt sich um ein unabhängiges Projekt, das nicht mit GitLab in Verbindung steht.",
       "license": "Die Browser-Extension steht unter der GNU General Public License Version 3 (GPL-3). Weitere Informationen zur Lizenz und zu den Bedingungen finden Sie in der LICENSE-Datei des Projekts."
     }
+  },
+  "notifications": {
+  "headline": "Benachrichtigungskonfiguration",
+  "titles": {
+  },
+  "labels": {
+    "new_review_merge_request": "Benachrichtige mich, wenn ein neuer Merge Request zur Überprüfung an mich gestellt wird",
+    "update_review_merge_request": "Benachrichtige mich, wenn ein Merge Request, bei dem ich Reviewer bin, aktualisiert wird",
+    "new_comment_own_merge_request": "Benachrichtige mich, wenn ein neuer Kommentar zu einem der Merge Requests, die mir zugewiesen sind, hinzugefügt wurde",
+    "update_comment_own_merge_request": "Benachrichtige mich, wenn ein Kommentar bei einem der Merge Requests, die mir zugewiesen sind, aktualisiert wurde"
   }
+}
+
+
 }

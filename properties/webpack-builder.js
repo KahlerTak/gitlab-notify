@@ -6,6 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const packageJson = require("../package.json");
+const { DefinePlugin } = require("webpack");
 const GenerateManifestPlugin = require("./GenerateManifest");
 
 const TerserPluginOptions = {
@@ -50,6 +51,10 @@ const GenerateManifestPluginOptions = {
 }
 
 const ModuleBuilder = (env, argv) => {
+    if (argv.mode === "development"){
+        GenerateManifestPluginOptions.manifestVersionExt = "Dev Mode";
+    }
+
     const config = {
         optimization: {
             splitChunks: false,
@@ -60,7 +65,7 @@ const ModuleBuilder = (env, argv) => {
         },
         entry: {
             background: path.resolve(__dirname, "..", "src", "typescript", "background.ts"),
-            options: path.resolve(__dirname, "..", "src", "typescript", "optionsLoader.tsx"), // Options-Seite
+            options: path.resolve(__dirname, "..", "src", "typescript", "optionsLoader.tsx"),
         },
         output: OutputOptions,
         experiments: ExperimentalOptions,
@@ -77,6 +82,9 @@ const ModuleBuilder = (env, argv) => {
         plugins: [
             new CleanWebpackPlugin({
                 cleanOnceBeforeBuildPatterns: ['**/*', '!manifest.json']
+            }),
+            new DefinePlugin({
+                __DEV__: JSON.stringify(argv.mode === "development"),
             }),
             new GenerateManifestPlugin(GenerateManifestPluginOptions),
             new CopyPlugin({
@@ -97,11 +105,9 @@ const ModuleBuilder = (env, argv) => {
         ],
     };
 
-    if (env.manifestVersion) {
-    }
     if (argv.mode === "development") {
         console.log("Development mode enabled")
-        config.devtool = "cheap-source-map";
+        config.devtool = "source-map";
     }
     if (env.release) {
         console.log("Compile for release");
