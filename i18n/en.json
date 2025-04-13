@@ -6,10 +6,12 @@
   },
   "notify": {
     "title": {
-      "new_merge_commit": "New commit in merge request"
+      "new_merge_commit": "New commit in merge request",
+      "new_merge_request_note": "New comment in merge request"
     },
     "message": {
-      "new_merge_commit": "The Merge Request '{mrTitle}' received a new commit. Please review the changes."
+      "new_merge_commit": "The Merge Request '{mrTitle}' received a new commit. Please review the changes.",
+      "new_merge_request_note": "The merge request '{mrTitle}' was commented. Please review the comments."
     }
   },
   "navigation": {

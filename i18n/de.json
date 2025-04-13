@@ -6,10 +6,12 @@
   },
   "notify": {
     "title": {
-      "new_merge_commit": "Neuer Commit in einem Merge Request"
+      "new_merge_commit": "Neuer Commit in einem Merge Request",
+      "new_merge_request_note": "Neuer Kommentar in einem Merge Request"
     },
     "message": {
-      "new_merge_commit": "Der Merge Request '{mrTitle}' hat einen neuen Commit erhalten. Schau nach ob die Änderungen alle Probleme behoben haben."
+      "new_merge_commit": "Der Merge Request '{mrTitle}' hat einen neuen Commit erhalten. Schau nach ob die Änderungen alle Probleme behoben haben.",
+      "new_merge_request_note": "Der Merge Request '{mrTitle}' wurde kommentiert. Schau nach was angemerkt wurde."
     }
   },
   "navigation": {

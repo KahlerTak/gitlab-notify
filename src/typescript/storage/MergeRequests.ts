@@ -15,7 +15,7 @@ export default class MergeRequests {
             const oldMergeRequests = await MergeRequests.Load();
             const client = new GitlabApiClient();
             await client.load();
-            const newMergeRequests = await client.getMergeRequests();
+            const newMergeRequests = await client.getReviewerMergeRequests();
             await MergeRequests.Store(newMergeRequests);
             for (const newMergeRequest of newMergeRequests) {
                 const existingMergeRequest = oldMergeRequests.find(mr => mr.id === newMergeRequest.id);
@@ -42,7 +42,7 @@ export default class MergeRequests {
                     return reject(chrome.runtime.lastError);
                 }
 
-                resolve(item["MergeRequests"] ?? []);
+                resolve(Array.from(item["MergeRequests"] ?? []));
             })
         });
     }

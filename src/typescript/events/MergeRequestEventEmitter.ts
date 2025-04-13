@@ -1,15 +1,16 @@
 import MergeRequestDto from "../gitlab/api/v4/Dtos/MergeRequestDto";
+import EventEmitter from "./EventEmitter";
 
 type MergeRequestUpdateEvent = (newValue: MergeRequestDto, oldValue: MergeRequestDto) => void | Promise<void>;
 type MergeRequestEvent = (newValue: MergeRequestDto, oldValue: MergeRequestDto) => void | Promise<void>;
 
-export default class MergeRequestEventEmitter {
+export default class MergeRequestEventEmitter extends EventEmitter {
     private static instance: MergeRequestEventEmitter;
-    private events: Record<string, Function[]> = {};
 
-    private constructor() {}
+    private constructor() {
+        super();
+    }
 
-    // Singleton-Instanz abrufen
     public static getInstance(): MergeRequestEventEmitter {
         if (!MergeRequestEventEmitter.instance) {
             MergeRequestEventEmitter.instance = new MergeRequestEventEmitter();
@@ -41,24 +42,4 @@ export default class MergeRequestEventEmitter {
         this.on("delete-merge-request", listener);
     }
 
-
-    private on(event: string, listener: Function) {
-        if (!this.events[event]) {
-            this.events[event] = [];
-        }
-        this.events[event].push(listener);
-    }
-
-    private async emit(event: string, ...args: any[]) {
-        const listeners = this.events[event];
-        console.log("emitted event", event);
-        if (listeners) {
-            for (const listener of listeners){
-                const result = listener(...args);
-                if (result instanceof Promise){
-                    await result;
-                }
-            }
-        }
-    }
 }

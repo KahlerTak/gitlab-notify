@@ -18,7 +18,7 @@
   },
   "name": "gitlab-notifier",
   "description": "This example demonstrates how to create a simple \"Hello World\" Chrome Extension. For more details, visit the [official tutorial](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world).",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "main": "entrypoint.js",
   "devDependencies": {
     "@types/chrome": "^0.0.312",
@@ -36,8 +36,8 @@
   "scripts": {
     "watch:firefox": "webpack --watch --config properties/firefox.webpack.config.js --mode development --env manifestVersion=v2",
     "watch:chromium": "webpack --watch --config properties/chromium.webpack.config.js --mode development --env manifestVersion=v3",
-    "build:firefox": "webpack --config properties/firefox.webpack.config.js --mode production --env manifestVersion=v2",
-    "build:chromium": "webpack --config properties/chromium.webpack.config.js --mode production --env manifestVersion=v3",
+    "build:firefox": "webpack --config properties/firefox.webpack.config.js --mode development --env manifestVersion=v2",
+    "build:chromium": "webpack --config properties/chromium.webpack.config.js --mode development --env manifestVersion=v3",
     "release:firefox": "webpack --config properties/firefox.webpack.config.js --mode production --env manifestVersion=v2 --env release",
     "release:chromium": "webpack --config properties/chromium.webpack.config.js --mode production --env manifestVersion=v3 --env release",
     "analyze-webpack:firefox": "webpack --config properties/firefox.webpack.config.js --mode production --env manifestVersion=v2 --env release --env analyze",

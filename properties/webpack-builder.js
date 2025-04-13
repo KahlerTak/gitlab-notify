@@ -60,7 +60,7 @@ const ModuleBuilder = (env, argv) => {
         },
         entry: {
             background: path.resolve(__dirname, "..", "src", "typescript", "background.ts"),
-            options: path.resolve(__dirname, "..", "src", "typescript", "optionsLoader.tsx"), // Options-Seite
+            options: path.resolve(__dirname, "..", "src", "typescript", "optionsLoader.tsx"),
         },
         output: OutputOptions,
         experiments: ExperimentalOptions,
@@ -101,7 +101,7 @@ const ModuleBuilder = (env, argv) => {
     }
     if (argv.mode === "development") {
         console.log("Development mode enabled")
-        config.devtool = "cheap-source-map";
+        config.devtool = "source-map";
     }
     if (env.release) {
         console.log("Compile for release");

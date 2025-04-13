@@ -5,3 +5,5 @@ export default class MergeRequestDto {
     public title: string = "";
     public sha: string = "";
 }
+
+export const MergeRequestDtoScheme = new MergeRequestDto();
